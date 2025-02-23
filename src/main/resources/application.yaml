@@ -1,0 +1,11 @@
+spring:
+  application:
+    name=RedisDemo
+  jpa:
+    show-sql=true
+    hibernate.ddl-auto=create
+  properties:
+    hibernate.dialect=org.hibernate.dialect.HSQLDialect
+  data:
+    redis.url= redis://redis-service:80
+    mongodb.uri= mongodb://mongo-service:27017/test

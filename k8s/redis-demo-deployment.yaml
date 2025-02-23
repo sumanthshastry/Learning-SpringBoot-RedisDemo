@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-service
+  labels:
+    app: redis-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-service
+  template:
+    metadata:
+      name: redis-service
+      labels:
+        app: redis-service
+    spec:
+      containers:
+        - name: redis-service
+          image: redis
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+      restartPolicy: Always
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  redis-demo
+  labels:
+    app: redis-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: redis-demo
+  template:
+    metadata:
+      name: redis-demo
+      labels:
+        app: redis-demo
+    spec:
+      containers:
+        - name: redis-demo
+          image: redis-demo:0.0.1-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-service
+  labels:
+    app: mongo-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-service
+  template:
+    metadata:
+      name: mongo-service
+      labels:
+        app: mongo-service
+    spec:
+      containers:
+        - name: mongo-service
+          image: mongo:4.4
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-persistent-storage
+      volumes:
+        - name: mongo-persistent-storage
+          persistentVolumeClaim:
+            claimName: mongo-pv-claim
