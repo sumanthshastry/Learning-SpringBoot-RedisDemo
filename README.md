@@ -1,0 +1,1 @@
+Redis, MongoDB setup,integration with Spring Boot, deploy using kubernates, a simple Hands-on https://medium.com/@sumanthshastry/redis-mongodb-setup-integration-with-spring-boot-deploy-using-kubernates-a-simple-hands-on-ab99ea6195fb
